@@ -102,7 +102,9 @@ This ELK server is configured to monitor the following machines:
 We have installed the following Beats on these machines:
 
 - Filebeat (filebeat-config.yml, filebeat-playbook.yml)
+- https://github.com/andsew/andy/blob/main/Diagrams/filebeat.png
 - Metricbeat (metricbeat-config.yml, metricbeat-playbook.yml)
+- https://github.com/andsew/andy/blob/main/Diagrams/Metricbeat.png
 
 These Beats allow us to collect the following information from each machine:
 
