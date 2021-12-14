@@ -177,35 +177,34 @@ http://[your.ELK-VM.External.IP]:5601/app/kibana, the public IP of ELK VM is dyn
 On terminal navigate to /etc/ansible/roles and create a YAML file: nano filebeat-playbook.yml
 
 - YAML File structure 
- - ---
  - name: installing and launching filebeat
-  hosts: webservers
-  become: yes
-  tasks:
+   - hosts: webservers
+   - become: yes
+   -tasks:
   - name: download filebeat deb
-    command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-amd64.deb
+    - command: curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.6.1-amd64.deb
 
   - name: install filebeat deb
-    command: dpkg -i filebeat-7.6.1-amd64.deb
+    - command: dpkg -i filebeat-7.6.1-amd64.deb
 
   - name: drop in filebeat.yml 
-    copy:
-      src: /etc/ansible/files/filebeat-config.yml
-      dest: /etc/filebeat/filebeat.yml
+    - copy:
+      - src: /etc/ansible/files/filebeat-config.yml
+      - dest: /etc/filebeat/filebeat.yml
 
   - name: enable and configure system module
-    command: filebeat modules enable system
+    - command: filebeat modules enable system
 
   - name: setup filebeat
-    command: filebeat setup
+    - command: filebeat setup
 
   - name: start filebeat service
-    command: service filebeat start
+    - command: service filebeat start
 
   - name: enable service filebeat on boot
-    systemd:
-      name: filebeat
-      enabled: yes
+    - systemd:
+     - name: filebeat
+      - enabled: yes
 
 
 - To run filebeat-playbook.yml:
