@@ -122,15 +122,15 @@ Filebeat
 - Copy the filebeat-config.yml file to /etc/ansible/files/filebeat-config.yml.
 - Update the filebeat-config.yml file to include the private IP:10.2.0.4 of the ELK VM
 
-output.elasticsearch:
-hosts: ["10.2.0.4:9200"]
-username: "elastic"
-password: "changeme"
+- output.elasticsearch:
+- hosts: ["10.2.0.4:9200"]
+- username: "elastic"
+- password: "changeme"
 
 AND
 
-setup.kibana:
-host: "10.2.0.4:5601"
+- setup.kibana:
+- host: "10.2.0.4:5601"
 
 
 - Run the playbook, and navigate to http://[yourELK-VM_External_IP]:5601/app/kibana (http://104.40.18.3:5601/app/kibana) to check that the installation worked as expected.
@@ -161,12 +161,12 @@ Edit the host file at /etc/ansible/hosts and include
 
 [webservers]
 
-10.0.0.5 ansible_python_interpreter=/usr/bin/python3
-10.0.0.7 ansible_python_interpreter=/usr/bin/python3
+- 10.0.0.5 ansible_python_interpreter=/usr/bin/python3
+- 10.0.0.7 ansible_python_interpreter=/usr/bin/python3
 
 [elk]
 
-10.2.0.4 ansible_python_interpreter=/usr/bin/python3
+- 10.2.0.4 ansible_python_interpreter=/usr/bin/python3
 
 - Which URL do you navigate to in order to check that the ELK server is running? 
 
