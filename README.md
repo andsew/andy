@@ -9,6 +9,7 @@ https://github.com/andsew/andy/blob/main/Diagrams/Project%20One%20%7BAM%7D%20Dia
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the ansible playbook file may be used to install only certain pieces of it, such as Filebeat.
 
   - filebeat-config.yml
+  - - filebeat-playbook.yml
 
 This document contains the following details:
 - Description of the Topology
@@ -30,8 +31,8 @@ Load balancing ensures that the application will be highly available, in additio
 
 Integrating an ELK server allows users to easily monitor the vulnerable VMs for changes to the logs and system files.
 
-- Filebeat collects data about the file system as log files data and organize them and sends it to Logstash and Elasticsearch. It helps views 
-- Metricbeat collects data about the system of a machine and service metrics for instance the uptime, which helps monitor the system and processes running on it.
+- Filebeat collects data about the file system as log files and organize them and sends it to Logstash and Elasticsearch. It helps view who logged in and what changes were made, modifications, who was logged at what time and much more.
+- Metricbeat collects data about the system of a machine and service metrics, which helps monitor the system and processes running on it.
 
 The configuration details of each machine may be found below.
 
@@ -70,7 +71,7 @@ Ansible was used to automate configuration of the ELK machine. No configuration 
 
 - Using Ansible saves valuable time configuring and setting up the Elk server, additionally this is done from one place using YAML Playbooks.
 
-- Automating configuration with Ansible allows to configure, download and launch the server with the help of the Ansible playbooks and trouble shoot and check if all run as desired. 
+- Automating configuration with Ansible allows to configure, download and launch the server with the help of the Ansible playbooks and trouble shoot and check if all is running  as desired. 
 
 The playbook (install-elk.yml) implements the following tasks:
 
@@ -87,7 +88,7 @@ The playbook (install-elk.yml) implements the following tasks:
   
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+docker_ps_output_commandline.png
 
 
 
