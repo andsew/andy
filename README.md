@@ -9,7 +9,6 @@ https://github.com/andsew/andy/blob/main/Diagrams/Project%20One%20%7BAM%7D%20Dia
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the ansible playbook file may be used to install only certain pieces of it, such as Filebeat.
 
   - filebeat-config.yml
-  - filebeat-config.yml
 
 This document contains the following details:
 - Description of the Topology
