@@ -88,7 +88,8 @@ The playbook (install-elk.yml) implements the following tasks:
   
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-docker_ps_output_commandline.png
+https://github.com/andsew/andy/blob/main/Diagrams/docker_ps_output_commandline.png
+https://github.com/andsew/andy/blob/main/Diagrams/docker_ps_output_web.png
 
 
 
