@@ -1,0 +1,116 @@
+Linux Systems Administration
+Step 1: Ensure/Double Check Permissions on Sensitive Files
+	1.	Permissions on /etc/shadow should allow only root read and write access.   
+	◦	Command to inspect permissions: once in /etc/ $ l -la | grep 'shadow' Root has read and write permission only 
+	◦	-rw-------   1 root shadow  2888 May 14 16:31 shadow 
+	◦	Command to set permissions (if needed): No need    
+	2.	Permissions on /etc/gshadow should allow only root read and write access.   
+	◦	Command to inspect permissions:once in /etc/ $ l -la | grep 'gshadow' Root has read and write permission only 
+	◦	-rw-------   1 root shadow  1076 May 14 16:31 gshadow 
+	◦	Command to set permissions (if needed):No need   
+	3.	Permissions on /etc/group should allow root read and write access, and allow everyone else read access only.   
+	◦	Command to inspect permissions:once in /etc/ $ l -la | grep 'group' 
+	◦	Root has read and write and all other only read access 
+	◦	-rw-r--r--   1 root root    1303 May 14 16:31 group 
+	◦	Command to set permissions (if needed):No need   
+	4.	Permissions on /etc/passwd should allow root read and write access, and allow everyone else read access only.   
+	◦	Command to inspect permissions:once in /etc/ $ l -la | grep 'passwd' 
+	◦	Root has read and write and all other only read access 
+	◦	-rw-r--r--   1 root root    3207 Sep 28 23:05 passwd 
+	◦	Command to set permissions (if needed): No need   
+Step 2: Create User Accounts
+	1.	Add user accounts for sam, joe, amy, sara, and admin.   
+	◦	Command to add each user account (include all five users): 
+	◦	$ sudo adduser sam 
+	◦	$ sudo adduser joe 
+	◦	$ sudo adduser amy 
+	◦	$ sudo adduser sara 
+	◦	$ sudo adduser admin 
+	◦	 
+	◦	sysadmin@UbuntuDesktop:/home$ ls 
+	◦	adam   billy       jack  john      sally  student      vagrant 
+	◦	admin  http        jane  max       sam    sysadmin 
+	◦	amy    instructor  joe   research  sara   user.hashes 
+	◦	 
+	◦	 
+	2.	Ensure that only the admin has general sudo access.   
+	◦	Command to add admin to the sudo group:$ sudo usermod -G sudo admin 
+	◦	sysadmin@UbuntuDesktop:/home$ groups admin 
+	◦	admin : admin sudo 
+
+Step 3: Create User Group and Collaborative Folder
+	1.	Add an engineers group to the system.   
+	◦	Command to add group: sysadmin@UbuntuDesktop:/home$ sudo addgroup engineers 
+	◦	Adding group `engineers' (GID 1019) ... 
+	◦	Done. 
+	2.	Add users sam, joe, amy, and sara to the managed group.   
+	◦	Command to add users to engineers group (include all four users): 
+	◦	$ sudo usermod -aG engineers sam 
+	◦	$ sudo usermod -aG engineers joe 
+	◦	$ sudo usermod -aG engineers amy 
+	◦	$ sudo usermod -aG engineers sara 
+	◦	Checking if they are on that group 
+	◦	$sudo groups sam  
+	◦	sam : sam engineers 
+	◦	$sudo groups joe 
+	◦	joe : joe engineers 
+	◦	$sudo groups amy  
+	◦	amy : amy engineers 
+	◦	$sudo groups sara  
+	◦	sara : sara engineers 
+	◦	 
+	◦	 
+	3.	Create a shared folder for this group at /home/engineers.   
+	◦	Command to create the shared folder: sysadmin@UbuntuDesktop:/home$ sudo mkdir engineers 
+	◦	Checking the Dir is created sysadmin@UbuntuDesktop:/home$ ls 
+	◦	adam   billy      instructor  john      sally  student      vagrant 
+	◦	admin  engineers  jane        max       sam    sysadmin 
+	◦	amy    http       joe         research  sara   user.hashes 
+	4.	Change ownership on the new engineers' shared folder to the engineers group.   
+	◦	Command to change ownership of engineer's shared folder to engineer group: sysadmin@UbuntuDesktop:/home$ sudo chown sysadmin:engineers engineers/ 
+	◦	The user was root changed it to sysadmin and the group to engineers 
+	◦	Checking change of ownership to group of engineers 
+	◦	sysadmin@UbuntuDesktop:/home$ ls -l 
+	◦	total 76 
+	◦	drwxr-xr-x  8 admin      adam       4096 May 14 16:29 adam 
+	◦	drwxr-xr-x  8 admin      admin      4096 Oct  1 15:43 admin 
+	◦	drwxr-xr-x  8 amy        amy        4096 Oct  1 18:24 amy 
+	◦	drwxr-xr-x  8 billy      billy      4096 May 14 16:29 billy 
+	◦	drwxr-xr-x  2 sysadmin   engineers  4096 Oct  4 16:47 engineers 
+	◦	drwxr-xr-x  8 http       http       4096 May 14 16:29 http 
+	◦	drwxr-xr-x  9 instructor instructor 4096 May 14 16:36 instructor 
+	◦	drwxr-xr-x 15 jane       jane       4096 Oct  1 00:56 jane 
+	◦	drwxr-xr-x  8 joe        joe        4096 Oct  1 18:23 joe 
+	◦	drwxr-xr-x  8 john       john       4096 May 14 16:29 john 
+	◦	drwxr-xr-x  9 max        max        4096 Sep 25 14:39 max 
+	◦	drwxr-xr-x  2 root       root       4096 Sep 23 22:47 research 
+	◦	drwxr-xr-x  8 sally      sally      4096 May 14 16:29 sally 
+	◦	drwxr-xr-x  8 sam        sam        4096 Oct  1 17:40 sam 
+	◦	drwxr-xr-x  8 sara       sara       4096 Oct  1 18:25 sara 
+	◦	drwxr-xr-x  8 student    student    4096 May 14 16:24 student 
+	◦	drwxr-xr-x 21 sysadmin   sysadmin   4096 Sep 28 19:35 sysadmin 
+	◦	-rw-r--r--  1 root       root       1581 May 14 16:29 user.hashes 
+	◦	drwxr-xr-x 10 vagrant    vagrant    4096 May 14 16:41 vagrant 
+Step 4: Lynis Auditing
+	1.	Command to install Lynis:sysadmin@UbuntuDesktop:/etc/lynis$ sudo apt -y install lynis 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+lynis is already the newest version (2.6.2-1)  
+	2.	Command to see documentation and instructions: sysadmin@UbuntuDesktop:/etc/lynis$ man lynis This prints out the General Command Manual and I get to see the syntax to run lynis.   
+	3.	Command to run an audit:sysadmin@UbuntuDesktop:~$ sudo lynis audit system    
+	4.	Provide a report from the Lynis output on what can be done to harden the system.   
+	◦	Screenshot of report output: The full report can be found in the following direct paths by default 
+	◦	Files: 
+	◦	  - Test and debug information      : /var/log/lynis.log 
+	◦	  - Report data                     : /var/log/lynis-report.dat 
+
+	•	 
+Bonus
+	1.	Command to install chkrootkit:$ sudo apt install chkrootkit   
+	2.	Command to see documentation and instructions:sysadmin@UbuntuDesktop:~$ man chkrootkit Prints out the General Command Manual on how to run this tool kit like on our next question I learned I need -x to us expert mode.   
+	3.	Command to run expert mode:$ sudo chkrootkit -x    
+	4.	Provide a report from the chrootkit output on what can be done to harden the system.   
+	◦	Screenshot of end of sample output:$ sudo chkrootkit -x | tail 
+
+

